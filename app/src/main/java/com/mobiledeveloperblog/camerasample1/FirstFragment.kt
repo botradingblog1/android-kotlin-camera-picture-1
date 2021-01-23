@@ -40,13 +40,11 @@ class FirstFragment : Fragment() {
     private fun requestCameraPermission(): Boolean {
         var permissionGranted = false
 
-        //if system os is Marshmallow or Above, we need to request runtime permission
+        // If system os is Marshmallow or Above, we need to request runtime permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             val cameraPermissionNotGranted = checkSelfPermission(activity as Context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
-            val extStoragePermissionNotGranted = checkSelfPermission(activity as Context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-
-            if (cameraPermissionNotGranted || extStoragePermissionNotGranted){
-                val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (cameraPermissionNotGranted){
+                val permission = arrayOf(Manifest.permission.CAMERA)
 
                 // Display permission dialog
                 requestPermissions(permission, CAMERA_PERMISSION_CODE)
@@ -67,7 +65,7 @@ class FirstFragment : Fragment() {
     // Handle Allow or Deny response from the permission dialog
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode === CAMERA_PERMISSION_CODE) {
-            if (grantResults.size === 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults.size === 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 // Permission was granted
                 openCameraInterface()
             }
