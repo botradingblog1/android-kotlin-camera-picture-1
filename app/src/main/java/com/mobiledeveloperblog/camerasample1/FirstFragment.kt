@@ -90,15 +90,6 @@ class FirstFragment : Fragment() {
         startActivityForResult(intent, IMAGE_CAPTURE_CODE)
     }
 
-    private fun showAlert(message: String) {
-        val builder = AlertDialog.Builder(activity as Context)
-        builder.setMessage(message)
-        builder.setPositiveButton(R.string.ok_button_title, null)
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -111,6 +102,15 @@ class FirstFragment : Fragment() {
             // Failed to take picture
             showAlert("Failed to take camera picture")
         }
+    }
+
+    private fun showAlert(message: String) {
+        val builder = AlertDialog.Builder(activity as Context)
+        builder.setMessage(message)
+        builder.setPositiveButton(R.string.ok_button_title, null)
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
